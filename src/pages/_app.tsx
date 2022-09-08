@@ -1,19 +1,26 @@
 import type { AppProps } from 'next/app';
 import styled from 'styled-components';
-
+import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <>
-      <GlobalStyle />
-      <Background />
-      <Content>
-        <Component {...pageProps} />
-      </Content>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <Background />
+        <Content>
+          <Component {...pageProps} />
+        </Content>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }

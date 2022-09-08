@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import inputPriceFormat from '../utilities/commaPrice';
 
 import { Product } from '../types/product';
 
@@ -10,7 +11,7 @@ const ProductItem = ({ product: { name, thumbnail, price } }: ProductItemProps) 
   <Container>
     <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
     <Name>{name}</Name>
-    <Price>{price}</Price>
+    <Price>{inputPriceFormat(String(price))}</Price>
   </Container>
 );
 
